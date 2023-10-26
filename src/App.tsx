@@ -1,5 +1,12 @@
+import PageHeader from './layouts/PageHeader';
+
 function App() {
-	return <div>Hello Vite React </div>;
+	return (
+		<div className='max-h-screen flex flex-col '>
+			<PageHeader />
+			<div>2</div>
+		</div>
+	);
 }
 
 export default App;
