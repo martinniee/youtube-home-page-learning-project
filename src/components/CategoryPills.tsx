@@ -25,7 +25,7 @@ export const CategoryPills = ({ categories }: CategoryPillProps) => {
 			// The translate is positive value,default by 0
 			setIsLeftVisible(translate > 0);
 			setIsRightVisible(
-				// Determine when to show off left arrow icon
+				// Determine when to show off right arrow icon
 				translate + container.clientWidth < container.scrollWidth
 			);
 		});
@@ -33,6 +33,7 @@ export const CategoryPills = ({ categories }: CategoryPillProps) => {
 		// Obserbing specificed element
 		observer.observe(containerRef.current);
 	}, [categories, translate]);
+
 	return (
 		<div className='overflow-x-hidden relative' ref={containerRef}>
 			<div
