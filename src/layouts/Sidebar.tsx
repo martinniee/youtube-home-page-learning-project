@@ -25,11 +25,19 @@ import { Children, ElementType, ReactNode, useState } from 'react';
 import Button, { buttonStyles } from '../components/Button';
 import { twMerge } from 'tailwind-merge';
 import { playlists, subscriptions } from '../data/sidebar';
+import { useSidebarContext } from '../contexts/SidebarContext';
+import { PageHeaderFirstSection } from './PageHeader';
 
 const Sidebar = () => {
+	const { isLargeOpen, isSmallOpen, close } = useSidebarContext();
+
 	return (
 		<>
-			<aside className='sticky top-8 overflow-y-auto scrollbar-hidden pb-4 flex flex-col ml-1 lg:hidden'>
+			<aside
+				className={`sticky top-8 overflow-y-auto scrollbar-hidden pb-4  flex flex-col ml-1 ${
+					isLargeOpen ? 'lg:hidden' : 'lg:flex'
+				} ${isSmallOpen ? 'hidden' : 'flex'}`}
+			>
 				<SmallSidebarItem Icon={Home} title='Home' url='/' />
 				<SmallSidebarItem Icon={Repeat} title='Shorts' url='/shorts' />
 				<SmallSidebarItem
@@ -44,7 +52,25 @@ const Sidebar = () => {
 				/>
 			</aside>
 
-			<aside className='w-56 lg:sticky absolute top-0 overflow-y-auto scrollbar-hidden pb-4 flex-col gap-2 px-2 flex'>
+			{isSmallOpen && (
+				<div
+					onClick={close}
+					className='lg:hidden fixed inset-0 z-[999] bg-secondary-dark opacity-50'
+				/>
+			)}
+
+			<aside
+				className={` lg:sticky absolute top-0 overflow-y-auto scrollbar-hidden pb-4 flex-col gap-2 px-2   ${
+					isLargeOpen ? 'lg:flex' : 'lg:hidden'
+				} ${
+					isSmallOpen
+						? 'flex z-[999]  bg-white max-h-screen '
+						: 'hidden'
+				} `}
+			>
+				<div className='lg:hidden pt-2 pl-2 sticky top-0  bg-white'>
+					<PageHeaderFirstSection />
+				</div>
 				<LargeSidebarSection title='Hi' visibleItemCount={1}>
 					<LargeSidebarItem
 						isActive
